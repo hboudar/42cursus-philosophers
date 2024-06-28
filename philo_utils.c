@@ -6,24 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 01:37:38 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 15:13:32 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//first argument should be at least more than 1
-
-//  data race
-//  lock orde violation
-//  deadlock
-//  starvation
-
-//  pthread_mutex_t    mutex;
-//  int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr);
-//  int pthread_mutex_lock(pthread_mutex_t *mutex);
-//  int pthread_mutex_unlock(pthread_mutex_t *mutex);
-//  int pthread_mutex_destroy(pthread_mutex_t *mutex);
 
 int check_args(int argc, char *argv[])
 {
@@ -57,6 +44,7 @@ int check_args(int argc, char *argv[])
 long get_time_in_ms(void)
 {
     struct timeval tv;
+
     gettimeofday(&tv, NULL);
     return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 }
