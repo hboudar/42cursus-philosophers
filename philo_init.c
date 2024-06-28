@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 01:22:51 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 01:41:12 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void initialize_table(t_table *table, int argc, char **argv)
     table->time_to_die = atoi(argv[2]);
     table->time_to_eat = atoi(argv[3]);
     table->time_to_sleep = atoi(argv[4]);
-    table->meals_required = (argc == 6) ? atoi(argv[5]) : 0;
+    table->meals_required = (argc == 6) * ft_atoi(argv[5]);
     table->simulation_running = 1;
     table->philosophers = malloc(sizeof(t_philosopher) * table->num_philosophers);
     pthread_mutex_init(&table->print_lock, NULL);

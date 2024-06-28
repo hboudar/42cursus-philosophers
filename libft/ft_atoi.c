@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:40:38 by hboudar           #+#    #+#             */
-/*   Updated: 2023/11/20 22:22:01 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 01:48:32 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	ft_atoi(const char *str)
 	int				sign;
 	int				i;
 
+	if (!str)
+		return (0);
 	i = ft_escape(str);
 	sign = 1;
 	if (str[i] == '-' || str[i] == '+')

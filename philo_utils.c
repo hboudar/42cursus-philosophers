@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 01:25:05 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 01:37:38 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,27 @@
 int check_args(int argc, char *argv[])
 {
     int i;
+    int j;
 
     i = 0;
     if (argc != 5 && argc != 6)
         return (1);
     while (argv[++i])
     {
-        if (argv[i][0] == '-')
+        j = 0;
+        if (argv[i][j] == '-')
             return (1);
-        else if (argv[i][0] == '+')
-            argv[i]++;
-        while (argv[i][0] == '0')
-            argv[i]++;
-        while (argv[i][0] >= '0' && argv[i][0] <= '9')
-            argv[i]++;
-        if (argv[i][0] != '\0')
+        else if (argv[i][j] == '+')
+            j++;
+        while (argv[i][j] == '0')
+            j++;
+        while (argv[i][j])
+        {
+            if (argv[i][j] < '0' || argv[i][j] > '9')
+                return (1);
+            j++;
+        }
+        if (argv[i][j] != '\0')
             return (1);
     }
     return (0);
