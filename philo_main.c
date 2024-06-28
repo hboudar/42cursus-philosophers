@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 15:19:38 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 18:03:20 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int argc, char **argv)
     }
     initialize_table(&table, argc, argv);
 
-    // Monitor philosophers' life status
     while (table.simulation_running)
     {
         for (int i = 0; i < table.num_philosophers; i++)
