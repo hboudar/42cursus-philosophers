@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/23 14:52:23 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/28 01:21:41 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,16 @@ typedef struct s_table
     t_philosopher   *philosophers;
     long            start_time;
 } t_table;
+
+void    eat(t_philosopher *philo);
+void    sleep_and_think(t_philosopher *philo);
+void    *philosopher_routine(void *arg);
+void    initialize_philosophers(t_table *table);
+void    initialize_forks(t_table *table);
+void    initialize_table(t_table *table, int argc, char **argv);
+void    cleanup_table(t_table *table);
+void    print_status(t_table *table, int id, const char *status);
+long    get_time_in_ms(void);
+int     check_args(int argc, char *argv[]);
 
 #endif
