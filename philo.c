@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/26 14:51:26 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/27 20:08:31 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-//data race
-//lock orde violation
-//deadlock
-//starvation
+//first argument should be at least more than 1
 
-// pthread_mutex_t    mutex;
-// int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr);
-// int pthread_mutex_lock(pthread_mutex_t *mutex);
-// int pthread_mutex_unlock(pthread_mutex_t *mutex);
-// int pthread_mutex_destroy(pthread_mutex_t *mutex);
+//  data race
+//  lock orde violation
+//  deadlock
+//  starvation
+
+//  pthread_mutex_t    mutex;
+//  int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr);
+//  int pthread_mutex_lock(pthread_mutex_t *mutex);
+//  int pthread_mutex_unlock(pthread_mutex_t *mutex);
+//  int pthread_mutex_destroy(pthread_mutex_t *mutex);
