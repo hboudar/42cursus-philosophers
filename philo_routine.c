@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 18:53:18 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:25:59 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,12 @@ void eat(t_philosopher *philo)
     int left_fork = philo->id;
     int right_fork = (philo->id + 1) % table->num_philosophers;
 
-    // Odd philosophers pick up the right fork first to prevent deadlock
     if (philo->id % 2 == 0)
-    {
-        pthread_mutex_lock(&table->forks[left_fork]);
-        print_status(table, philo->id, "has taken a fork");
-        pthread_mutex_lock(&table->forks[right_fork]);
-        print_status(table, philo->id, "has taken a fork");
-    }
-    else
-    {
-        pthread_mutex_lock(&table->forks[right_fork]);
-        print_status(table, philo->id, "has taken a fork");
-        pthread_mutex_lock(&table->forks[left_fork]);
-        print_status(table, philo->id, "has taken a fork");
-    }
-
+        usleep(table->time_to_eat / 2);
+    pthread_mutex_lock(&table->forks[left_fork]);
+    print_status(table, philo->id, "has taken a fork");
+    pthread_mutex_lock(&table->forks[right_fork]);
+    print_status(table, philo->id, "has taken a fork");
     print_status(table, philo->id, "is eating");
     philo->last_meal_time = get_time_in_ms();
     usleep(table->time_to_eat * 1000);

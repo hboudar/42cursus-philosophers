@@ -6,11 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:47:20 by hboudar           #+#    #+#             */
-/*   Updated: 2023/11/16 19:42:13 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:39:23 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../philo.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {

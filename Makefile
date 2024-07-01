@@ -1,4 +1,4 @@
-SRC		= philo_main.c philo_init.c philo_routine.c philo_utils.c
+SRC		= libft/ft_atoi.c libft/ft_putstr_fd.c philo_main.c philo_init.c philo_routine.c philo_utils.c
 OBJ		= $(SRC:.c=.o)
 HEADER	= philo.h
 NAME	= philo
@@ -6,22 +6,18 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
-all: utils $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ) libft/libft.a
-	$(CC) -lpthread  $(OBJ) -o $(NAME) libft/libft.a
+$(NAME): $(OBJ)
+	$(CC) -lpthread  $(OBJ) -o $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-utils:
-	cd libft && make
 
 clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	cd libft && make fclean
 	$(RM) $(NAME)
 
 re: fclean all

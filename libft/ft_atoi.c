@@ -6,11 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:40:38 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 01:48:32 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:39:13 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../philo.h"
 
 static int	ft_escape(char const *str)
 {

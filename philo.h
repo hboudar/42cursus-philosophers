@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/28 15:05:42 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/06/29 13:38:56 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include "libft/libft.h"
 
 typedef struct s_philosopher
 {
@@ -54,5 +53,9 @@ void    cleanup_table(t_table *table);
 void    print_status(t_table *table, int id, const char *status);
 long    get_time_in_ms(void);
 int     check_args(int argc, char *argv[]);
+
+//utils
+int     ft_atoi(const char *str);
+void    ft_putstr_fd(char *s, int fd);
 
 #endif
