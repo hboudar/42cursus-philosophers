@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/29 14:25:59 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/03 17:10:49 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,4 @@ void eat(t_philosopher *philo)
 
     pthread_mutex_unlock(&table->forks[left_fork]);
     pthread_mutex_unlock(&table->forks[right_fork]);
-}
-
-void *philosopher_routine(void *arg)
-{
-    t_philosopher *philo = (t_philosopher *)arg;
-    t_table *table = philo->table;
-
-    while (table->simulation_running)
-    {
-        eat(philo);
-        if (table->meals_required && philo->meals_eaten >= table->meals_required)
-            break;
-        sleep_and_think(philo);
-    }
-    return NULL;
 }
