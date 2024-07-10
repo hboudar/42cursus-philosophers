@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/29 13:38:56 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/10 14:12:41 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void    print_status(t_table *table, int id, const char *status);
 long    get_time_in_ms(void);
 int     check_args(int argc, char *argv[]);
 
-//utils
 int     ft_atoi(const char *str);
 void    ft_putstr_fd(char *s, int fd);
 
