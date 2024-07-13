@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/06/29 14:28:27 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/13 17:18:51 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ int check_args(int argc, char *argv[])
     return (0);
 }
 
+void    ft_usleep(long long time)
+{
+    long long start_time = get_time_in_ms();
+    while (get_time_in_ms() - start_time < time)
+        usleep(100);
+}
+
 long get_time_in_ms(void)
 {
     struct timeval tv;
@@ -51,21 +58,22 @@ long get_time_in_ms(void)
 
 void print_status(t_table *table, int id, const char *status)
 {
+    if (!table->simulation_running)
+        return;
     pthread_mutex_lock(&table->print_lock);
     printf("%ld %d %s\n", get_time_in_ms() - table->start_time, id, status);
     pthread_mutex_unlock(&table->print_lock);
 }
 
-void cleanup_table(t_table *table) //clean up the table
+void cleanup_table(t_table *table)
 {
-    for (int i = 0; i < table->num_philosophers; i++)
+    int i;
+    
+    i = 0;
+    while (i < table->num_philosophers)
     {
         pthread_join(table->philosophers[i].thread, NULL);
-    }
-
-    for (int i = 0; i < table->num_philosophers; i++)
-    {
-        pthread_mutex_destroy(&table->forks[i]);
+        i++;
     }
     pthread_mutex_destroy(&table->print_lock);
     free(table->forks);

@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/10 14:12:41 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/13 17:15:29 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_philosopher
     pthread_t       thread;
     long            last_meal_time;
     int             meals_eaten;
+    int             left_fork;
+    int             right_fork;
     struct s_table  *table;
 } t_philosopher;
 
@@ -53,7 +55,8 @@ void    cleanup_table(t_table *table);
 void    print_status(t_table *table, int id, const char *status);
 long    get_time_in_ms(void);
 int     check_args(int argc, char *argv[]);
-
+void    ft_usleep(long long time);
+  
 int     ft_atoi(const char *str);
 void    ft_putstr_fd(char *s, int fd);
 
