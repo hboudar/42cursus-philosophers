@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/10 14:13:08 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/10 17:07:25 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,6 @@ void *monitor_routine(void *arg)
     for (int i = 0; i < table->num_philosophers; i++)
         pthread_join(table->philosophers[i].thread, NULL);
     cleanup_table(table);
-    return NULL;
-}
-void *philosopher_routine(void *arg)
-{
-    t_philosopher *philo = (t_philosopher *)arg;
-    t_table *table = philo->table;
-
-    while (1)
-    {
-        if (!table->simulation_running)
-            return NULL;
-        eat(philo);
-        if (!table->simulation_running)
-            return NULL;
-        sleep_and_think(philo);
-        if (!table->simulation_running)
-            return NULL;
-    }
     return NULL;
 }
 
