@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/13 17:03:41 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:28:49 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void *philosopher_routine(void *arg)
     t_table *table = philo->table;
 
     if (philo->id % 2 == 0)
-        usleep(60);
+        usleep(100);
     while (table->simulation_running)
     {
         eat(philo);

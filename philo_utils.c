@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/13 17:18:51 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/22 14:52:17 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,8 @@ void cleanup_table(t_table *table)
 {
     int i;
     
+    printf("Cleaning up table\n");
     i = 0;
-    while (i < table->num_philosophers)
-    {
-        pthread_join(table->philosophers[i].thread, NULL);
-        i++;
-    }
     pthread_mutex_destroy(&table->print_lock);
     free(table->forks);
     free(table->philosophers);
