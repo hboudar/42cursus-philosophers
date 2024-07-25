@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/22 14:52:32 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/25 07:45:06 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int monitor_routine(void *arg)
 {
-    t_table *table = (t_table *)arg;
-
+    t_table *table;
+    int i;
+    
+    (1) && (table = (t_table *)arg, i = 0);
     while (table->simulation_running)
     {
-        for (int i = 0; i < table->num_philosophers; i++)
+        while (i < table->num_philosophers)
         {
             if (get_time_in_ms() - table->philosophers[i].last_meal_time >= table->time_to_die)
             {
@@ -29,6 +31,7 @@ int monitor_routine(void *arg)
                 return (1);
             }
         }
+        i++;
     }
     return (0);
 }
