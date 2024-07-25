@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/22 14:28:49 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/25 07:51:17 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void eat(t_philosopher *philo)
 {
     t_table *table = philo->table;
     philo->left_fork = philo->id - 1;
-    philo->right_fork = (philo->id) % table->num_philosophers;
+    philo->right_fork = (philo->id) % table->num_philos;
 
     pthread_mutex_lock(&table->forks[philo->left_fork]);
     print_status(table, philo->id, "has taken the left fork");

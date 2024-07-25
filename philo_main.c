@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/25 07:45:06 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/25 07:51:10 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int monitor_routine(void *arg)
     (1) && (table = (t_table *)arg, i = 0);
     while (table->simulation_running)
     {
-        while (i < table->num_philosophers)
+        while (i < table->num_philos)
         {
-            if (get_time_in_ms() - table->philosophers[i].last_meal_time >= table->time_to_die)
+            if (get_time_in_ms() - table->philos[i].last_meal_time >= table->time_to_die)
             {
                 table->simulation_running = 0;
                 pthread_mutex_lock(&table->print_lock);
-                printf("%ld %d %s\n", get_time_in_ms() - table->start_time, table->philosophers[i].id, "died");
+                printf("%ld %d %s\n", get_time_in_ms() - table->start_time, table->philos[i].id, "died");
                 pthread_mutex_unlock(&table->print_lock);
                 return (1);
             }

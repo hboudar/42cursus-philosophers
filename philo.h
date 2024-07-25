@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/13 17:15:29 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/25 07:50:46 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philosopher
 
 typedef struct s_table
 {
-    int             num_philosophers;
+    int             num_philos;
     int             time_to_die;
     int             time_to_eat;
     int             time_to_sleep;
@@ -41,7 +41,7 @@ typedef struct s_table
     int             simulation_running;
     pthread_mutex_t *forks;
     pthread_mutex_t print_lock;
-    t_philosopher   *philosophers;
+    t_philosopher   *philos;
     long            start_time;
 } t_table;
 

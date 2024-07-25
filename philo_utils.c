@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/22 14:52:17 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/25 07:51:26 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void cleanup_table(t_table *table)
     i = 0;
     pthread_mutex_destroy(&table->print_lock);
     free(table->forks);
-    free(table->philosophers);
+    free(table->philos);
 }
