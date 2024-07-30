@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 16:40:09 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:02:30 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_table
 	long			start_time;
 }	t_table;
 
-int		check_args(int argc, char *argv[], t_table *table);
+void	check_args(int argc, char *argv[]);
 
 void	initialize_table(t_table *table, int argc, char **argv);
 void	initialize_forks(t_table *table);

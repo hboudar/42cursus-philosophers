@@ -6,13 +6,13 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 16:32:12 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:01:58 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(int argc, char *argv[], t_table *table)
+void	check_args(int argc, char *argv[])
 {
 	int	num;
 	int	i;
@@ -30,8 +30,6 @@ int	check_args(int argc, char *argv[], t_table *table)
 		else if (num < 1 || argv[i][j] != '\0')
 			ft_error("Invalid argument(s)");
 	}
-	initialize_table(table, argc, argv);
-	return (0);
 }
 
 void	ft_usleep(long long time)

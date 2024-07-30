@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 17:29:12 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 18:02:51 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	main(int argc, char **argv)
 	pthread_t	monitor_thread;
 	t_table		table;
 
-	check_args(argc, argv, &table);
+	check_args(argc, argv);
+	initialize_table(&table, argc, argv);
 	if (pthread_create(&monitor_thread, NULL,
 			(void *)monitor_routine, &table) != 0)
 	{
