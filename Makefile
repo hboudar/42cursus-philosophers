@@ -1,4 +1,4 @@
-SRC		= libft/ft_atoi.c libft/ft_putstr_fd.c philo_main.c philo_init.c philo_routine.c philo_utils.c
+SRC		= ft_atoi.c ft_putstr_fd.c main.c init.c routine.c utils.c
 OBJ		= $(SRC:.c=.o)
 HEADER	= philo.h
 NAME	= philo

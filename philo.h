@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/25 09:50:34 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 16:40:09 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,24 @@ typedef struct s_table
 	long			start_time;
 }	t_table;
 
+int		check_args(int argc, char *argv[], t_table *table);
+
+void	initialize_table(t_table *table, int argc, char **argv);
+void	initialize_forks(t_table *table);
+void	initialize_philosophers(t_table *table);
+
+void	*philosopher_routine(void *arg);
 void	eat(t_philosopher *philo);
 void	sleep_and_think(t_philosopher *philo);
-void	*philosopher_routine(void *arg);
-void	initialize_philosophers(t_table *table);
-void	initialize_forks(t_table *table);
-void	initialize_table(t_table *table, int argc, char **argv);
-void	cleanup_table(t_table *table);
-void	print_status(t_table *table, int id, const char *status);
-long	time_in_ms(void);
-int		check_args(int argc, char *argv[]);
-void	ft_usleep(long long time);
 
-int		ft_atoi(const char *str);
+long	time_in_ms(void);
+void	ft_usleep(long long time);
+void	print_status(t_table *table, int id, const char *status);
+int		check_meals_eaten(t_table *table);
+
+void	ft_error(char *str);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_atoi(const char *str, int *i);
+void	cleanup_table(t_table *table);
 
 #endif

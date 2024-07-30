@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_init.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/25 09:51:31 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 16:27:23 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	initialize_forks(t_table *table)
 
 void	initialize_table(t_table *table, int argc, char **argv)
 {
-	table->num_philos = ft_atoi(argv[1]);
-	table->time_to_die = ft_atoi(argv[2]);
-	table->time_to_eat = ft_atoi(argv[3]);
-	table->time_to_sleep = ft_atoi(argv[4]);
 	table->meals_required = -1;
 	if (argc == 6)
-		table->meals_required = ft_atoi(argv[5]);
+		(1) && (argc = 0, table->meals_required = ft_atoi(argv[5], &argc));
+	(1) && (argc = 0, table->num_philos = ft_atoi(argv[1], &argc));
+	(1) && (argc = 0, table->time_to_die = ft_atoi(argv[2], &argc));
+	(1) && (argc = 0, table->time_to_eat = ft_atoi(argv[3], &argc));
+	(1) && (argc = 0, table->time_to_sleep = ft_atoi(argv[4], &argc));
 	table->simulation_running = 1;
 	table->philos = malloc(sizeof(t_philosopher) * table->num_philos);
 	if (!table->philos)

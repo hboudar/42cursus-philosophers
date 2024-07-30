@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/25 09:54:41 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 16:39:29 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ void	*philosopher_routine(void *arg)
 		sleep_and_think(philo);
 	}
 	return (NULL);
+}
+
+int	check_meals_eaten(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	if (table->meals_required == -1)
+		return (0);
+	while (i < table->num_philos)
+	{
+		if (table->philos[i].meals_eaten < table->meals_required)
+			return (0);
+		i++;
+	}
+	return (1);
 }

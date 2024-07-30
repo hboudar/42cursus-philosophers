@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/25 09:55:52 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/07/30 16:32:12 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(int argc, char *argv[])
+int	check_args(int argc, char *argv[], t_table *table)
 {
+	int	num;
 	int	i;
 	int	j;
 
-	i = 0;
 	if (argc != 5 && argc != 6)
-		return (1);
+		ft_error("Invalid number of arguments");
+	(1) && (i = 0, num = 0);
 	while (argv[++i])
 	{
 		j = 0;
-		if (argv[i][j] == '-')
-			return (1);
-		else if (argv[i][j] == '+')
-			j++;
-		while (argv[i][j] == '0')
-			j++;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (1);
-			j++;
-		}
-		if (argv[i][j] != '\0')
-			return (1);
+		num = ft_atoi(argv[i], &j);
+		if (i == 1 && (num < 1 || num > 200 || argv[i][j] != '\0'))
+			ft_error("Invalid argument(s)");
+		else if (num < 1 || argv[i][j] != '\0')
+			ft_error("Invalid argument(s)");
 	}
+	initialize_table(table, argc, argv);
 	return (0);
 }
 
