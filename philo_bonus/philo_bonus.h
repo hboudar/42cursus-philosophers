@@ -6,24 +6,32 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:08:27 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 18:07:07 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:28:19 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
+// # include <signal.h>
+// # include <sys/wait.h>
+// # include <sys/types.h>
+
 # include <stdio.h>
 # include <stdlib.h>
-#include <sys/_types/_pid_t.h>
 # include <unistd.h>
-# include <pthread.h>
 # include <sys/time.h>
+# include <pthread.h>
 # include <semaphore.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include <sys/types.h>
 
+typedef struct s_philo
+{
+	long			id;
+	long			last_meal;
+	long			meals;
+	int				is_dead;
+	struct s_table  *table;
+}   t_philo;
 
 typedef struct s_table
 {
@@ -35,15 +43,15 @@ typedef struct s_table
     int				simulation_running;
     sem_t			*forks;
     sem_t			*print_lock;
-    pid_t           *philos;
+    t_philo         *philos;
     long			start_time;
 }	t_table;
 
-void    init_table(t_table *table, int argc, char **argv);
+void    check_args(int argc, t_table *table);
+void    initialize_table(t_table *table, int argc, char **argv);
 
 
-void    check_args(int argc, char *argv[]);
-int     ft_atoi(const char *str, int *i);
+int     ft_atoi(const char *str, int i);
 void	ft_putstr_fd(char *s, int fd);
 void    ft_error(char *msg);
 

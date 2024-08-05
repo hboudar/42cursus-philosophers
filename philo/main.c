@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:48:25 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 10:31:08 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:23:08 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	t_table		table;
 
 	if (argc < 5 || argc > 6)
-		ft_error("Invalid number of arguments\n");
+		ft_error("Error: wrong number of arguments\n");
 	initialize_table(&table, argc, argv);
 	if (pthread_create(&monitor_thread, NULL,
 			(void *)monitor_routine, &table) != 0)

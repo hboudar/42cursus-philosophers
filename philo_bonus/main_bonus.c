@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:07:43 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 18:06:40 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:23:30 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int main(int argc, char **argv)
 {
     t_table table;
 
-    check_args(argc, argv);
-    init_table(&table, argc, argv);
+    if (argc < 5 || argc > 6)
+        ft_error("Error: wrong number of arguments\n");
+    initialize_table(&table, argc, argv);
     return (0);
 }

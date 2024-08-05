@@ -6,14 +6,13 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 10:27:25 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:27:41 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

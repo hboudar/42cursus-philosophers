@@ -6,28 +6,19 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 18:07:38 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:22:20 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	check_args(int argc, char *argv[])
+void	check_args(int argc, t_table *table)
 {
-	int	num;
-	int	i;
-	int	j;
-
-	if (argc != 5 && argc != 6)
-		ft_error("Invalid number of arguments");
-	(1) && (i = 0, num = 0);
-	while (argv[++i])
-	{
-		j = 0;
-		num = ft_atoi(argv[i], &j);
-		if (i == 1 && (num < 1 || num > 200 || argv[i][j] != '\0'))
-			ft_error("Invalid argument(s)");
-		else if (num < 1 || argv[i][j] != '\0')
-			ft_error("Invalid argument(s)");
-	}
+	if (table->num_philos < 1 || table->num_philos > 200)
+		ft_error("Invalid number of philosophers\n");
+	if (table->time_to_die < 60 || table->time_to_eat < 60
+		|| table->time_to_sleep < 60)
+		ft_error("Time must be at least 60ms\n");
+	if (table->meals_required < 1  && argc == 6)
+		ft_error("Invalid number of meals\n");
 }
