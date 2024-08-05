@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 10:28:53 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:06:56 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	cleanup_table(t_table *table)
 
 void	check_args(t_table *table, int argc)
 {
-	if (table->num_philos < 2 || table->num_philos > 200)
+	if (table->num_philos < 1 || table->num_philos > 200)
 		ft_error("Invalid number of philosophers\n");
 	else if (table->time_to_die < 60 || table->time_to_eat < 60
 		|| table->time_to_sleep < 60)

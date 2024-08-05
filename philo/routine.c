@@ -6,11 +6,27 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 16:39:29 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 11:08:24 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	check_meals_eaten(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	if (table->meals_required == -1)
+		return (0);
+	while (i < table->num_philos)
+	{
+		if (table->philos[i].meals_eaten < table->meals_required)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	sleep_and_think(t_philosopher *philo)
 {
@@ -49,27 +65,11 @@ void	*philosopher_routine(void *arg)
 	philo = (t_philosopher *)arg;
 	table = philo->table;
 	if (philo->id % 2 == 0)
-		usleep(100);
+		usleep(table->time_to_eat);
 	while (table->simulation_running)
 	{
 		eat(philo);
 		sleep_and_think(philo);
 	}
 	return (NULL);
-}
-
-int	check_meals_eaten(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	if (table->meals_required == -1)
-		return (0);
-	while (i < table->num_philos)
-	{
-		if (table->philos[i].meals_eaten < table->meals_required)
-			return (0);
-		i++;
-	}
-	return (1);
 }
