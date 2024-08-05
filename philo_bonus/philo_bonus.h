@@ -6,14 +6,13 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:08:27 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:28:19 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:21:18 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
-// # include <signal.h>
 // # include <sys/wait.h>
 // # include <sys/types.h>
 
@@ -23,6 +22,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 
 typedef struct s_philo
 {
@@ -43,9 +43,12 @@ typedef struct s_table
     int				simulation_running;
     sem_t			*forks;
     sem_t			*print_lock;
+    sem_t			*death_lock;
     t_philo         *philos;
     long			start_time;
 }	t_table;
+
+void    ft_error(char *msg);
 
 void    check_args(int argc, t_table *table);
 void    initialize_table(t_table *table, int argc, char **argv);
@@ -53,6 +56,6 @@ void    initialize_table(t_table *table, int argc, char **argv);
 
 int     ft_atoi(const char *str, int i);
 void	ft_putstr_fd(char *s, int fd);
-void    ft_error(char *msg);
+long	time_in_ms(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:22:20 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 15:20:54 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,12 @@ void	check_args(int argc, t_table *table)
 		ft_error("Time must be at least 60ms\n");
 	if (table->meals_required < 1  && argc == 6)
 		ft_error("Invalid number of meals\n");
+}
+
+long	time_in_ms(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
