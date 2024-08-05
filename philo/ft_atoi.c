@@ -6,34 +6,35 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:40:38 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 16:28:02 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 10:15:42 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str, int *i)
+int	ft_atoi(const char *str, int i)
 {
 	unsigned long	n;
 	unsigned long	n_ll;
-	int				sign;
 
 	if (!str)
 		return (0);
-	while (str[*i] == 32 || (str[*i] >= 9 && str[*i] <= 13))
-		*i += 1;
-	sign = (str[*i] == '-') * -1 + (str[*i] != '-');
-	*i += (str[*i] == '-' || str[*i] == '+');
-	(1) && (n_ll = 0, n = 0);
-	while (str[*i] >= '0' && str[*i] <= '9')
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		n = n * 10 + str[*i] - 48;
-		if (n / 10 != n_ll && sign == 1)
+		if (str[i] == '-')
 			return (-1);
-		else if (n / 10 != n_ll)
-			return (0);
-		n_ll = n;
-		*i += 1;
+		i++;
 	}
-	return (n * sign);
+	(1) && (n_ll = 0, n = 0);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + str[i] - 48;
+		if (n / 10 != n_ll)
+			return (-1);
+		n_ll = n;
+		i += 1;
+	}
+	return (n);
 }

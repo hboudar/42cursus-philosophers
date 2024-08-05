@@ -6,31 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 18:01:58 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/05 10:28:53 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	check_args(int argc, char *argv[])
-{
-	int	num;
-	int	i;
-	int	j;
-
-	if (argc != 5 && argc != 6)
-		ft_error("Invalid number of arguments");
-	(1) && (i = 0, num = 0);
-	while (argv[++i])
-	{
-		j = 0;
-		num = ft_atoi(argv[i], &j);
-		if (i == 1 && (num < 1 || num > 200 || argv[i][j] != '\0'))
-			ft_error("Invalid argument(s)");
-		else if (num < 1 || argv[i][j] != '\0')
-			ft_error("Invalid argument(s)");
-	}
-}
 
 void	ft_usleep(long long time)
 {
@@ -67,4 +47,15 @@ void	cleanup_table(t_table *table)
 	pthread_mutex_destroy(&table->print_lock);
 	free(table->forks);
 	free(table->philos);
+}
+
+void	check_args(t_table *table, int argc)
+{
+	if (table->num_philos < 2 || table->num_philos > 200)
+		ft_error("Invalid number of philosophers\n");
+	else if (table->time_to_die < 60 || table->time_to_eat < 60
+		|| table->time_to_sleep < 60)
+		ft_error("Invalid time\n");
+	else if (argc == 6 && table->meals_required < 1)
+		ft_error("Invalid number of meals\n");
 }
