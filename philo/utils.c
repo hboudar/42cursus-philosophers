@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:06:56 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/06 15:57:51 by hamza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void	print_status(t_table *table, int id, const char *status)
 
 void	cleanup_table(t_table *table)
 {
-	int	i;
-
 	pthread_mutex_lock(&table->print_lock);
-	i = 0;
 	pthread_mutex_destroy(&table->print_lock);
 	free(table->forks);
 	free(table->philos);
