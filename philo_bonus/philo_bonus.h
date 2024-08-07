@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:08:27 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 13:24:54 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:46:03 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ typedef struct s_table
 void	ft_error(char *msg);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_atoi(const char *str, int i);
-void	check_args(int argc, t_table *table);
 
 void	initialize_table(t_table *table, int argc, char **argv);
-void	philo_init(t_table *table, t_philo *philo, int i);
-int		philo_life(void *philo);
+void	start_simulation(t_table *table);
 
 void	ft_usleep(long long time);
 long	time_in_ms(void);

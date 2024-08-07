@@ -6,22 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 13:26:39 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:39:51 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-void	check_args(int argc, t_table *table)
-{
-	if (table->num_philos < 1 || table->num_philos > 200)
-		ft_error("Invalid number of philosophers\n");
-	if (table->time_to_die < 60 || table->time_to_eat < 60
-		|| table->time_to_sleep < 60)
-		ft_error("Time must be at least 60ms\n");
-	if (table->meals_required < 1 && argc == 6)
-		ft_error("Invalid number of meals\n");
-}
 
 long	time_in_ms(void)
 {
@@ -50,8 +39,8 @@ void	print_status(t_philo *philo, char *status)
 
 void	wait_pids(pid_t *pid, int n_philos)
 {
-	int	i;
 	int	status;
+	int	i;
 
 	waitpid(-1, &status, 0);
 	if (status != 0)
