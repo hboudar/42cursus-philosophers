@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 13:45:33 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 15:02:02 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,4 @@ void	start_simulation(t_table *table)
 			philo_life(&table->philos[i]);
 	}
 	wait_pids(pid, table->num_philos);
-	free(pid);
-	free(table->philos);
 }
