@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:27:15 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 11:02:43 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 13:13:42 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ void	initialize_philosophers(t_table *table)
 		if (pid[i] == -1)
 			ft_error("Error: fork failed\n");
 		if (pid[i] == 0)
-		{
 			philo_life(&table->philos[i]);
-			exit(0);
-		}
 	}
-	i = -1;
-	while (++i < table->num_philos)
-		waitpid(pid[i], NULL, 0);
+	wait_pids(pid, table->num_philos);
+	free(pid);
+	free(table->philos);
 }
 
 void	initialize_semaphores(t_table *table)
@@ -66,7 +63,7 @@ void	initialize_semaphores(t_table *table)
 	}
 }
 
-void    initialize_table(t_table *table, int argc, char **argv)
+void	initialize_table(t_table *table, int argc, char **argv)
 {
 	table->num_philos = ft_atoi(argv[1], 0);
 	table->time_to_die = ft_atoi(argv[2], 0);
