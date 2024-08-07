@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 13:39:51 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 17:17:51 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,15 @@ void	wait_pids(pid_t *pid, int n_philos)
 	int	status;
 	int	i;
 
-	waitpid(-1, &status, 0);
-	if (status != 0)
+	while (n_philos--)
 	{
-		i = -1;
-		while (++i < n_philos)
-			kill(pid[i], SIGKILL);
-	}
-	else
-	{
-		i = -1;
-		while (++i < n_philos)
-			waitpid(pid[i], &status, 0);
+		waitpid(-1, &status, 0);
+		if (status != 0)
+		{
+			i = -1;
+			while (++i < n_philos)
+				kill(pid[i], SIGKILL);
+			return ;
+		}
 	}
 }

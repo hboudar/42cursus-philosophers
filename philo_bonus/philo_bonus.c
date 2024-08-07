@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 16:24:49 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 18:12:40 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,23 @@ static int	philo_life(void *arg)
 {
 	t_table		*table;
 	t_philo		*philo;
-	pthread_t	death;
+	pthread_t	monitor;
 
 	philo = (t_philo *)arg;
 	table = philo->table;
-	pthread_create(&death, NULL, monitor_routine, philo);
+	if (pthread_create(&monitor, NULL, monitor_routine, philo))
+		ft_error("Error: pthread_create failed\n");
+	if (pthread_detach(monitor))
+		ft_error("Error: pthread_detach failed\n");
+	if (philo->id % 2)
+		ft_usleep(table->time_to_eat);
 	while (1)
 	{
-		if (table->meals_required != -1
-			&& philo->meals == table->meals_required)
+		if (philo->meals == table->meals_required)
+		{
+			print_status(philo, "has eaten enough");
 			return (EXIT_SUCCESS);
+		}
 		ft_eat(philo);
 		ft_sleep(philo);
 		print_status(philo, "is thinking");
@@ -76,12 +83,15 @@ void	start_simulation(t_table *table)
 		ft_error("Error: malloc failed\n");
 	while (++i < table->num_philos)
 	{
-		philo_init(table, table->philos + i, i + 1);
 		pid[i] = fork();
 		if (pid[i] == -1)
 			ft_error("Error: fork failed\n");
 		if (pid[i] == 0)
+		{
+			philo_init(table, &table->philos[i], i + 1);
 			philo_life(&table->philos[i]);
+			exit (EXIT_SUCCESS);
+		}
 	}
 	wait_pids(pid, table->num_philos);
 }

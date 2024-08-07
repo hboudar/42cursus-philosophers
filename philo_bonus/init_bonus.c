@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:27:15 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 13:43:18 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:43 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 static void	initialize_semaphores(t_table *table)
 {
 	sem_unlink("forks");
+	sem_unlink("print_lock");
+	sem_unlink("death_lock");
 	table->forks = sem_open("forks", O_CREAT, 0644, table->num_philos);
 	if (table->forks == SEM_FAILED)
 		ft_error("Error: sem_open failed\n");
-	sem_unlink("print_lock");
 	table->print_lock = sem_open("print_lock", O_CREAT, 0644, 1);
 	if (table->print_lock == SEM_FAILED)
 	{
@@ -26,7 +27,6 @@ static void	initialize_semaphores(t_table *table)
 		sem_unlink("forks");
 		ft_error("Error: sem_open failed\n");
 	}
-	sem_unlink("death_lock");
 	table->death_lock = sem_open("death_lock", O_CREAT, 0644, 1);
 	if (table->death_lock == SEM_FAILED)
 	{
