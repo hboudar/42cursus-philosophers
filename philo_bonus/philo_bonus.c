@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 15:02:02 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 16:24:49 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	start_simulation(t_table *table)
 		ft_error("Error: malloc failed\n");
 	while (++i < table->num_philos)
 	{
-		philo_init(table, &table->philos[i], i + 1);
+		philo_init(table, table->philos + i, i + 1);
 		pid[i] = fork();
 		if (pid[i] == -1)
 			ft_error("Error: fork failed\n");
