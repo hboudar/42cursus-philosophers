@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 15:20:54 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:43:39 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,20 @@ long	time_in_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	ft_usleep(long ms)
+{
+	unsigned long	time;
+
+	time = time_in_ms();
+	while (time_in_ms() - time < (unsigned long)ms)
+		usleep(100);
+}
+
+void	print_status(t_philo *philo, char *status)
+{
+	sem_wait(philo->table->print_lock);
+	printf("%ld %i %s\n", time_in_ms() - philo->table->start_time, philo->id, status);
+	sem_post(philo->table->print_lock);
 }

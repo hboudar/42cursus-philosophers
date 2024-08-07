@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:27:15 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 15:24:24 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:02:43 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,19 @@ void	initialize_philosophers(t_table *table)
 		ft_error("Error: malloc failed\n");
 	while (++i < table->num_philos)
 	{
-		
+		philo_init(table, &table->philos[i], i + 1);
+		pid[i] = fork();
+		if (pid[i] == -1)
+			ft_error("Error: fork failed\n");
+		if (pid[i] == 0)
+		{
+			philo_life(&table->philos[i]);
+			exit(0);
+		}
 	}
+	i = -1;
+	while (++i < table->num_philos)
+		waitpid(pid[i], NULL, 0);
 }
 
 void	initialize_semaphores(t_table *table)
