@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:27:41 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:39:47 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_philosopher
 {
 	int				id;
 	pthread_t		thread;
-	long			last_meal_time;
+	long			last_meal;
 	int				meals_eaten;
 	int				left_fork;
 	int				right_fork;

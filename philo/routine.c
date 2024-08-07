@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:08:24 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:40:10 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	eat(t_philosopher *philo)
 	pthread_mutex_lock(&table->forks[philo->right_fork]);
 	print_status(table, philo->id, "has taken a fork");
 	print_status(table, philo->id, "is eating");
-	philo->last_meal_time = time_in_ms();
+	philo->last_meal = time_in_ms();
 	ft_usleep(table->time_to_eat);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&table->forks[philo->right_fork]);

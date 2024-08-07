@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 10:27:51 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/07 11:39:38 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	monitor_routine(void *arg)
 	{
 		while (i < table->num_philos)
 		{
-			if (time_in_ms() - table->philos[i].last_meal_time
-				>= table->time_to_die)
+			if (time_in_ms() - table->philos[i].last_meal >= table->time_to_die)
 			{
 				philo_died(table, i + 1);
 				return (1);
