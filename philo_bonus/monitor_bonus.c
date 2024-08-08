@@ -6,12 +6,11 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:42:22 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/08 10:52:12 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/08 11:02:08 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <stdio.h>
 
 static int	check_meals_eaten(t_philo *philo)
 {
