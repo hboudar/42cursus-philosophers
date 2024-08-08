@@ -6,23 +6,23 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 17:17:51 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/08 10:26:47 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-long	time_in_ms(void)
+unsigned long long	time_in_ms(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	return ((tv.tv_sec * 1000ULL) + (tv.tv_usec / 1000));
 }
 
-void	ft_usleep(long long time)
+void	ft_usleep(unsigned long long time)
 {
-	long long	start_time;
+	unsigned long long	start_time;
 
 	start_time = time_in_ms();
 	while (time_in_ms() - start_time < time)
@@ -32,7 +32,7 @@ void	ft_usleep(long long time)
 void	print_status(t_philo *philo, char *status)
 {
 	sem_wait(philo->table->print_lock);
-	printf("%ld %i %s\n", time_in_ms() - philo->table->start_time,
+	printf("%llu %i %s\n", time_in_ms() - philo->table->start_time,
 		philo->id, status);
 	sem_post(philo->table->print_lock);
 }
