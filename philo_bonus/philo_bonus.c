@@ -6,11 +6,12 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 15:13:35 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:27:03 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <sys/semaphore.h>
 
 static void	ft_sleep(t_philo *philo)
 {
@@ -26,8 +27,10 @@ static void	ft_eat(t_philo *philo)
 	print_status(philo, "has taken a fork");
 	print_status(philo, "is eating");
 	ft_usleep(philo->table->time_to_eat);
+	sem_wait(philo->table->meals_lock);
 	philo->last_meal = time_in_ms();
 	philo->meals_eaten++;
+	sem_post(philo->table->meals_lock);
 	sem_post(philo->table->forks);
 	sem_post(philo->table->forks);
 }

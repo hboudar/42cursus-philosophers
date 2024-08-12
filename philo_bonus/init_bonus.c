@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:27:15 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 14:44:45 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:26:15 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,22 @@ static void	initialize_semaphores(t_table *table)
 	sem_unlink("death_lock");
 	table->forks = sem_open("forks", O_CREAT, 0644, table->num_philos);
 	if (table->forks == SEM_FAILED)
+	{
+		(1) && (sem_close(table->meals_lock), sem_unlink("meals_lock"));
 		ft_error("Error: sem_open failed\n");
+	}
 	table->print_lock = sem_open("print_lock", O_CREAT, 0644, 1);
 	if (table->print_lock == SEM_FAILED)
 	{
 		(1) && (sem_close(table->forks), sem_unlink("forks"));
+		(1) && (sem_close(table->meals_lock), sem_unlink("meals_lock"));
 		ft_error("Error: sem_open failed\n");
 	}
 	table->death_lock = sem_open("death_lock", O_CREAT, 0644, 1);
 	if (table->death_lock == SEM_FAILED)
 	{
 		(1) && (sem_close(table->forks), sem_unlink("forks"));
+		(1) && (sem_close(table->meals_lock), sem_unlink("meals_lock"));
 		(1) && (sem_close(table->print_lock), sem_unlink("print_lock"));
 		ft_error("Error: sem_open failed\n");
 	}
@@ -54,5 +59,9 @@ void	initialize_table(t_table *table, int argc, char **argv)
 		table->meals_required = ft_atoi(argv[5], 0);
 	if (table->meals_required < 1 && argc == 6)
 		ft_error("Error: invalid number of meals\n");
+	sem_unlink("meals_lock");
+	table->meals_lock = sem_open("meals_lock", O_CREAT, 0644, 1);
+	if (table->meals_lock == SEM_FAILED)
+		ft_error("Error: sem_open failed\n");
 	initialize_semaphores(table);
 }
