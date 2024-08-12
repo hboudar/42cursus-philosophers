@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:07:43 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 12:17:30 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 13:45:33 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	main(int argc, char **argv)
 	(1) && (sem_close(table.forks), sem_unlink("forks"));
 	(1) && (sem_close(table.print_lock), sem_unlink("print_lock"));
 	(1) && (sem_close(table.death_lock), sem_unlink("death_lock"));
+	usleep(50000);
 	exit (EXIT_SUCCESS);
 }
