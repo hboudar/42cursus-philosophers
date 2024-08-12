@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:27:15 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 16:55:43 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 11:40:48 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ void	initialize_table(t_table *table, int argc, char **argv)
 		table->meals_required = ft_atoi(argv[5], 0);
 	if (table->meals_required < 1 && argc == 6)
 		ft_error("Error: invalid number of meals\n");
-	table->simulation_running = 1;
 	initialize_semaphores(table);
 }

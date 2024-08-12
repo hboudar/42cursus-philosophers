@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:40:38 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/05 11:19:59 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/08 14:46:50 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ int	ft_atoi(const char *str, int i)
 		n_ll = n;
 		i += 1;
 	}
+	if (str[i] != '\0')
+		ft_error("Error: invalid argument\n");
 	return (n);
 }

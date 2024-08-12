@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/07 11:39:47 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 09:34:07 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_philosopher
 {
 	int				id;
 	pthread_t		thread;
-	long			last_meal;
+	long long		last_meal;
 	int				meals_eaten;
 	int				left_fork;
 	int				right_fork;
@@ -37,31 +37,25 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals_required;
-	int				simulation_running;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	eat_lock;
 	t_philosopher	*philos;
-	long			start_time;
+	long long		start_time;
 }	t_table;
 
-void	check_args(t_table *table, int argc);
-void	initialize_table(t_table *table, int argc, char **argv);
-void	initialize_forks(t_table *table);
-void	initialize_philosophers(t_table *table);
+int			monitor_routine(void *arg);
+void		*philosopher_routine(void *arg);
+void		check_args(t_table *table, int argc);
+void		initialize_table(t_table *table, int argc, char **argv);
 
-void	*philosopher_routine(void *arg);
-void	eat(t_philosopher *philo);
-void	sleep_and_think(t_philosopher *philo);
-int		monitor_routine(void *arg);
+long long	time_in_ms(void);
+void		ft_usleep(long long time);
+void		print_status(t_table *table, int id, const char *status);
 
-long	time_in_ms(void);
-void	ft_usleep(long long time);
-void	print_status(t_table *table, int id, const char *status);
-int		check_meals_eaten(t_table *table);
-
-void	ft_error(char *str);
-void	ft_putstr_fd(char *s, int fd);
-int		ft_atoi(const char *str, int i);
-void	cleanup_table(t_table *table);
+void		ft_error(char *str);
+void		cleanup_table(t_table *table);
+void		ft_putstr_fd(char *s, int fd);
+int			ft_atoi(const char *str, int i);
 
 #endif

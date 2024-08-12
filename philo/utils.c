@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hamza <hamza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/06 15:57:51 by hamza            ###   ########.fr       */
+/*   Updated: 2024/08/12 12:26:20 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_usleep(long long time)
 		usleep(100);
 }
 
-long	time_in_ms(void)
+long long	time_in_ms(void)
 {
 	struct timeval	tv;
 
@@ -31,17 +31,24 @@ long	time_in_ms(void)
 
 void	print_status(t_table *table, int id, const char *status)
 {
-	if (!table->simulation_running)
-		return ;
 	pthread_mutex_lock(&table->print_lock);
-	printf("%ld %d %s\n", time_in_ms() - table->start_time, id, status);
+	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
 	pthread_mutex_unlock(&table->print_lock);
 }
 
 void	cleanup_table(t_table *table)
 {
-	pthread_mutex_lock(&table->print_lock);
+	int	i;
+
+	i = 0;
+	usleep(500000);
+	while (i < table->num_philos)
+	{
+		pthread_mutex_destroy(&table->forks[i]);
+		i++;
+	}
 	pthread_mutex_destroy(&table->print_lock);
+	pthread_mutex_destroy(&table->eat_lock);
 	free(table->forks);
 	free(table->philos);
 }
