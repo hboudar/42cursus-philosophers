@@ -4,7 +4,7 @@ OBJ		=	$(SRC:.c=.o)
 HEADER	=	philo_bonus.h
 NAME	=	philo_bonus
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 
 all:	$(NAME)
