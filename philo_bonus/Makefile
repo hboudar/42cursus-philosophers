@@ -4,13 +4,13 @@ OBJ		=	$(SRC:.c=.o)
 HEADER	=	philo_bonus.h
 NAME	=	philo_bonus
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS	=	-Wall -Wextra -Werror -g
 RM		=	rm -f
 
 all:	$(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -lpthread -fsanitize=thread -o $(NAME)
+	$(CC) $(OBJ) -lpthread -o $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@

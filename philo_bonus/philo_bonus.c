@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <sys/semaphore.h>
 
 static void	ft_sleep(t_philo *philo)
 {
