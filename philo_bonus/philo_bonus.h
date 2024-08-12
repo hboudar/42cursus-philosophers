@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:08:27 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 14:26:04 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 14:45:17 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+#include <sys/semaphore.h>
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
@@ -23,7 +24,6 @@
 
 typedef struct s_philo
 {
-	int				died;
 	int				id;
 	int				meals_eaten;
 	long long		last_meal;
@@ -41,6 +41,7 @@ typedef struct s_table
 	sem_t		*forks;
 	sem_t		*print_lock;
 	sem_t		*death_lock;
+	
 	t_philo		*philos;
 }	t_table;
 

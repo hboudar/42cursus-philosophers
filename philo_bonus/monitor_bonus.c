@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:42:22 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 14:27:50 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 14:44:08 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ void	*monitor_routine(void *arg)
 			&& philo->meals_eaten >= table->meals_required)
 			break ;
 		sem_post(table->death_lock);
+
 		if (time_in_ms() - philo->last_meal >= table->time_to_die)
 		{
 			sem_wait(table->print_lock);
 			printf("%llu %i died\n",
 				time_in_ms() - table->start_time, philo->id);
-				philo->died = 1;
 			exit(EXIT_FAILURE);
 		}
 	}
-	sem_post(table->death_lock);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 14:28:06 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/12 15:13:35 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	philo_life(void *arg)
 	while (table->meals_required == -1
 		|| philo->meals_eaten < table->meals_required)
 	{
-		if (philo->died)
-			exit(EXIT_FAILURE);
 		ft_eat(philo);
 		ft_sleep(philo);
 		print_status(philo, "is thinking");
@@ -59,7 +57,6 @@ static void	philo_life(void *arg)
 static void	philo_init(t_table *table, t_philo *philo, int i)
 {
 	philo->id = i;
-	philo->died = 0;
 	philo->meals_eaten = 0;
 	philo->table = table;
 	philo->last_meal = time_in_ms();
