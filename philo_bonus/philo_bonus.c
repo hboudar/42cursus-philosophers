@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 10:00:23 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 15:27:03 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/14 11:01:05 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,31 @@ static void	ft_eat(t_philo *philo)
 	sem_post(philo->table->forks);
 }
 
-static void	philo_life(void *arg)
+static void	philo_init(t_table *table, t_philo *philo, int i)
 {
-	t_table		*table;
-	t_philo		*philo;
+	philo->id = i + 1;
+	philo->table = table;
+	philo->meals_eaten = 0;
+	philo->last_meal = time_in_ms();
+	table->start_time = time_in_ms();
+}
+
+static void	philo_life(t_table *table, t_philo *philo)
+{
 	pthread_t	monitor;
 
-	philo = (t_philo *)arg;
-	table = philo->table;
-	if (pthread_create(&monitor, NULL, monitor_routine, arg))
+	if (pthread_create(&monitor, NULL, monitor_routine, philo))
 		ft_error("Error: pthread_create failed\n");
 	if (pthread_detach(monitor))
 		ft_error("Error: pthread_detach failed\n");
-	while (table->meals_required == -1
-		|| philo->meals_eaten < table->meals_required)
+	while (table->meals_to_eat == -1
+		|| philo->meals_eaten < table->meals_to_eat)
 	{
 		ft_eat(philo);
 		ft_sleep(philo);
 		print_status(philo, "is thinking");
 	}
 	exit(EXIT_SUCCESS);
-}
-
-static void	philo_init(t_table *table, t_philo *philo, int i)
-{
-	philo->id = i;
-	philo->meals_eaten = 0;
-	philo->table = table;
-	philo->last_meal = time_in_ms();
 }
 
 void	start_simulation(t_table *table)
@@ -75,7 +72,6 @@ void	start_simulation(t_table *table)
 	table->philos = malloc(sizeof(t_philo) * table->num_philos);
 	if (!table->philos)
 		ft_error("Error: malloc failed\n");
-	table->start_time = time_in_ms();
 	while (++i < table->num_philos)
 	{
 		pid[i] = fork();
@@ -83,8 +79,8 @@ void	start_simulation(t_table *table)
 			ft_error("Error: fork failed\n");
 		else if (!pid[i])
 		{
-			philo_init(table, table->philos + i, i + 1);
-			philo_life(&table->philos[i]);
+			philo_init(table, &table->philos[i], i);
+			philo_life(table, &table->philos[i]);
 		}
 	}
 	wait_pids(pid, table->num_philos);
