@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 09:34:07 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/13 12:01:14 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_philosopher
+typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread;
@@ -27,8 +27,9 @@ typedef struct s_philosopher
 	int				meals_eaten;
 	int				left_fork;
 	int				right_fork;
+	int				full;
 	struct s_table	*table;
-}	t_philosopher;
+}	t_philo;
 
 typedef struct s_table
 {
@@ -37,10 +38,11 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				meals_required;
+	int				philos_full;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	eat_lock;
-	t_philosopher	*philos;
+	t_philo			*philo;
 	long long		start_time;
 }	t_table;
 
@@ -57,5 +59,6 @@ void		ft_error(char *str);
 void		cleanup_table(t_table *table);
 void		ft_putstr_fd(char *s, int fd);
 int			ft_atoi(const char *str, int i);
+void		detaching_philos(t_table *table);
 
 #endif

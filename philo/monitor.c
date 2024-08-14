@@ -6,40 +6,35 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 10:09:25 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/13 11:39:03 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	check_meals_eaten(t_table *table)
-{
-	int	i;
-
-	i = 0;
-	pthread_mutex_unlock(&table->eat_lock);
-	if (table->meals_required == -1)
-		return (0);
-	while (i < table->num_philos)
-	{
-		pthread_mutex_lock(&table->eat_lock);
-		if (table->philos[i].meals_eaten >= table->meals_required)
-		{
-			pthread_mutex_unlock(&table->eat_lock);
-			pthread_mutex_lock(&table->print_lock);
-			return (1);
-		}
-		pthread_mutex_unlock(&table->eat_lock);
-		i++;
-	}
-	return (0);
-}
 
 static void	philo_died(t_table *table, int id)
 {
 	pthread_mutex_unlock(&table->eat_lock);
 	pthread_mutex_lock(&table->print_lock);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, "died");
+}
+
+static int	check_meals_eaten(t_philo *philo)
+{
+	if (philo->table->meals_required == -1)
+		return (0);
+	else if (philo->meals_eaten >= philo->table->meals_required && !philo->full)
+	{
+		philo->full = 1;
+		philo->table->philos_full++;
+	}
+	if (philo->table->philos_full == philo->table->num_philos)
+	{
+		pthread_mutex_unlock(&philo->table->eat_lock);
+		pthread_mutex_lock(&philo->table->print_lock);
+		return (1);
+	}
+	return (0);
 }
 
 int	monitor_routine(void *arg)
@@ -54,13 +49,14 @@ int	monitor_routine(void *arg)
 		while (i < table->num_philos)
 		{
 			pthread_mutex_lock(&table->eat_lock);
-			if (time_in_ms() - table->philos[i].last_meal >= table->time_to_die)
+			if (time_in_ms() - table->philo[i].last_meal >= table->time_to_die)
 			{
 				philo_died(table, i + 1);
 				return (1);
 			}
-			else if (check_meals_eaten(table))
+			else if (check_meals_eaten(&table->philo[i]))
 				return (1);
+			pthread_mutex_unlock(&table->eat_lock);
 			i++;
 		}
 	}

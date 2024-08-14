@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/12 12:26:20 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/14 10:17:45 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ void	cleanup_table(t_table *table)
 	pthread_mutex_destroy(&table->print_lock);
 	pthread_mutex_destroy(&table->eat_lock);
 	free(table->forks);
-	free(table->philos);
+	free(table->philo);
 }
 
 void	check_args(t_table *table, int argc)
 {
-	if (table->num_philos < 1 || table->num_philos > 200)
+	if (table->num_philos < 1)
 		ft_error("Invalid number of philosophers\n");
-	else if (table->time_to_die < 60 || table->time_to_eat < 60
-		|| table->time_to_sleep < 60)
+	else if (table->time_to_die < 1 || table->time_to_eat < 1
+		|| table->time_to_sleep < 1)
 		ft_error("Invalid time\n");
 	else if (argc == 6 && table->meals_required < 1)
 		ft_error("Invalid number of meals\n");
