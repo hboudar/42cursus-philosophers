@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/14 10:32:47 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/15 10:44:50 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,10 @@ void	detaching_philos(t_table *table)
 	}
 }
 
-static void	sleep_and_think(t_philo *philo)
+static void	sleep_and_think(t_table *table, t_philo *philo)
 {
-	t_table	*table;
-
-	table = philo->table;
 	print_status(table, philo->id, "is sleeping");
 	ft_usleep(table->time_to_sleep);
-	print_status(table, philo->id, "is thinking");
 }
 
 static void	eat(t_philo *philo)
@@ -49,9 +45,11 @@ static void	eat(t_philo *philo)
 	print_status(table, philo->id, "is eating");
 	pthread_mutex_lock(&table->eat_lock);
 	philo->last_meal = time_in_ms();
-	philo->meals_eaten++;
 	pthread_mutex_unlock(&table->eat_lock);
 	ft_usleep(table->time_to_eat);
+	pthread_mutex_lock(&table->eat_lock);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&table->eat_lock);
 	pthread_mutex_unlock(&table->forks[philo->right_fork]);
 	pthread_mutex_unlock(&table->forks[philo->left_fork]);
 }
@@ -68,7 +66,8 @@ void	*philosopher_routine(void *arg)
 	while (1)
 	{
 		eat(philo);
-		sleep_and_think(philo);
+		sleep_and_think(table, philo);
+		print_status(table, philo->id, "is thinking");
 	}
 	return (NULL);
 }
