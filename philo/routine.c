@@ -6,25 +6,28 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/15 10:44:50 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/19 12:23:49 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	detaching_philos(t_table *table)
+int	detaching_philos(t_table *table)
 {
 	int	i;
 
 	i = -1;
 	while (++i < table->num_philos)
 	{
-		if (pthread_detach(table->philo[i].thread) != 0)
+		if (pthread_detach(table->philo[i].thread))
 		{
 			pthread_mutex_lock(&table->print_lock);
-			ft_error("Error detaching philosopher thread\n");
+			ft_putstr_fd("Error detaching philosopher thread\n", 2);
+			free(table->philo);
+			return (destroy_resources(table, 3));
 		}
 	}
+	return (0);
 }
 
 static void	sleep_and_think(t_table *table, t_philo *philo)
@@ -54,7 +57,7 @@ static void	eat(t_philo *philo)
 	pthread_mutex_unlock(&table->forks[philo->left_fork]);
 }
 
-void	*philosopher_routine(void *arg)
+void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 	t_table	*table;

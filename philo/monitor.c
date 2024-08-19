@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/15 11:20:29 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/19 12:01:15 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_meals_eaten(t_table *table)
 	int	i;
 
 	i = 0;
-	if (table->meals_required == -1)
+	if (table->meals_required == -2)
 		return (0);
 	while (i < table->num_philos)
 	{
@@ -63,7 +63,7 @@ int	check_meals_eaten(t_table *table)
 	return (0);
 }
 
-int	monitor_routine(void *arg)
+int	monitor(void *arg)
 {
 	t_table	*table;
 

@@ -6,17 +6,18 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 14:47:20 by hboudar           #+#    #+#             */
-/*   Updated: 2024/07/30 13:25:30 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/19 11:30:35 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	while (s && *s && fd >= 0)
 	{
 		write(fd, &(*s), 1);
 		s++;
 	}
+	return (1);
 }

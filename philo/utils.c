@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/14 10:17:45 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/19 12:25:17 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,31 @@ void	cleanup_table(t_table *table)
 	free(table->philo);
 }
 
-void	check_args(t_table *table, int argc)
+int	destroy_resources(t_table *table, int mode)
 {
-	if (table->num_philos < 1)
-		ft_error("Invalid number of philosophers\n");
-	else if (table->time_to_die < 1 || table->time_to_eat < 1
-		|| table->time_to_sleep < 1)
-		ft_error("Invalid time\n");
-	else if (argc == 6 && table->meals_required < 1)
-		ft_error("Invalid number of meals\n");
+	int	i;
+
+	i = -1;
+	usleep(500000);
+	(!mode) && (ft_putstr_fd("Failed to initialize mutex\n", 2));
+	if (mode == 1)
+	{
+		pthread_mutex_destroy(&table->eat_lock);
+		ft_putstr_fd("Failed to allocate memory for forks\n", 2);
+	}
+	else if (mode == 2)
+	{
+		pthread_mutex_destroy(&table->eat_lock);
+		free(table->forks);
+		ft_putstr_fd("Failed to initialize mutex\n", 2);
+	}
+	else if (mode == 3)
+	{
+		while (++i < table->num_philos)
+			pthread_mutex_destroy(&table->forks[i]);
+		pthread_mutex_destroy(&table->eat_lock);
+		free(table->forks);
+	}
+	pthread_mutex_destroy(&table->print_lock);
+	return (1);
 }
