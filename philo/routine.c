@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 11:59:46 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 16:44:37 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	detaching_philos(t_table *table)
 	return (0);
 }
 
-static void	sleep_and_think(t_table *table, t_philo *philo)
+static void	ft_sleep(t_table *table, t_philo *philo)
 {
 	print_status(table, philo->id, "is sleeping");
 	ft_usleep(table->time_to_sleep);
@@ -69,7 +69,7 @@ void	*philo_routine(void *arg)
 	while (1)
 	{
 		eat(philo);
-		sleep_and_think(table, philo);
+		ft_sleep(table, philo);
 		print_status(table, philo->id, "is thinking");
 	}
 	return (NULL);
