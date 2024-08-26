@@ -9,7 +9,7 @@ RM		=	rm -f
 all:	$(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -lpthread -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
