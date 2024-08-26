@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/19 12:31:31 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/24 17:07:12 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ int	init_philos(t_table *table, int i)
 	while (++i < table->num_philos)
 	{
 		(1) && (table->philo[i].full = 0, table->philo[i].meals_eaten = 0);
-		table->philo[i].id = i + 1;
-		table->philo[i].table = table;
+		(1) && (table->philo[i].id = i + 1, table->philo[i].table = table);
 		table->philo[i].last_meal = time_in_ms();
 		table->philo[i].left_fork = table->philo[i].id - 1;
 		table->philo[i].right_fork = table->philo[i].id % table->num_philos;
 		if (pthread_create(&table->philo[i].thread, NULL,
 				philo_routine, &table->philo[i]))
 		{
-			pthread_mutex_lock(&table->print_lock);
+			(1) && (free(table->philo), pthread_mutex_lock(&table->print_lock));
 			ft_putstr_fd("Error creating philosopher thread\n", 2);
-			free(table->philo);
 			return (destroy_resources(table, 3));
 		}
 	}
+	if (detaching_philos(table))
+		return (1);
 	return (0);
 }
 

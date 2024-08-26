@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/19 12:01:15 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 10:30:11 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ int	check_meals_eaten(t_table *table)
 		return (0);
 	while (i < table->num_philos)
 	{
+		pthread_mutex_lock(&table->eat_lock);
 		if (table->philo[i].meals_eaten >= table->meals_required
 			&& !table->philo[i].full)
 		{
 			table->philo[i].full = 1;
 			table->philos_full++;
 		}
+		pthread_mutex_unlock(&table->eat_lock);
 		if (table->philos_full == table->num_philos)
 		{
 			pthread_mutex_lock(&table->print_lock);
