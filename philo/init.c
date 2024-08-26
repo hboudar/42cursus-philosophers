@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/24 17:07:12 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 11:09:26 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	init_forks(t_table *table, int i)
 
 int	init_args(t_table *table, int argc, char *argv[])
 {
+	table->simulation = 1;
 	table->philos_full = 0;
 	table->num_philos = ft_atoi(argv[1], 0);
 	if (table->num_philos < 1)

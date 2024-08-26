@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 11:44:35 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/19 12:23:43 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 11:09:14 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
+	int				simulation;
 	int				num_philos;
 	int				time_to_die;
 	int				time_to_eat;

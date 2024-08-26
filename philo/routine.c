@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/24 17:14:41 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 11:09:44 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*philo_routine(void *arg)
 	table = philo->table;
 	if (philo->id % 2 == 0)
 		ft_usleep(table->time_to_eat / 2);
-	while (1)
+	while (table->simulation)
 	{
 		eat(philo);
 		sleep_and_think(table, philo);

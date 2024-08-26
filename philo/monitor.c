@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 10:30:11 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 11:14:29 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	philo_died(t_table *table, int id)
 {
 	pthread_mutex_unlock(&table->eat_lock);
 	pthread_mutex_lock(&table->print_lock);
+	usleep(500000);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, "died");
 }
 
@@ -29,6 +30,7 @@ int	check_time_to_die(t_table *table)
 		pthread_mutex_lock(&table->eat_lock);
 		if (time_in_ms() - table->philo[i].last_meal >= table->time_to_die)
 		{
+			table->simulation = 0;
 			philo_died(table, table->philo[i].id);
 			return (1);
 		}
@@ -58,6 +60,7 @@ int	check_meals_eaten(t_table *table)
 		if (table->philos_full == table->num_philos)
 		{
 			pthread_mutex_lock(&table->print_lock);
+			table->simulation = 0;
 			return (1);
 		}
 		i++;
