@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 11:26:52 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/26 12:16:47 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_status(t_table *table, int id, const char *status)
 
 void	cleanup_table(t_table *table)
 {
-	usleep(500000);
+	usleep(1000000);
 	while (table->num_philos--)
 		pthread_mutex_destroy(&table->forks[table->num_philos]);
 	pthread_mutex_destroy(&table->print_lock);
@@ -52,7 +52,7 @@ int	destroy_resources(t_table *table, int mode)
 	int	i;
 
 	i = -1;
-	usleep(500000);
+	usleep(1000000);
 	(!mode) && (ft_putstr_fd("Failed to initialize mutex\n", 2));
 	if (mode == 1)
 	{
