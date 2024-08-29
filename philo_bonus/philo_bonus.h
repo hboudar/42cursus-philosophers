@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:08:27 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/24 16:31:40 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/29 10:59:17 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@
 typedef struct s_philo
 {
 	int				id;
-	int				meals_eaten;
+	long long		start_time;
 	long long		last_meal;
+	int				meals_eaten;
 	struct s_table	*table;
 }	t_philo;
 
 typedef struct s_table
 {
-	long long	start_time;
 	int			num_philos;
 	int			meals_to_eat;
 	int			time_to_eat;
 	int			time_to_die;
 	int			time_to_sleep;
-	t_philo		*philos;
+	t_philo		*philo;
 	sem_t		*forks;
 	sem_t		*print_lock;
 	sem_t		*death_lock;

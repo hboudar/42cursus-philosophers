@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 16:44:37 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/29 11:08:00 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = philo->table;
+
+	philo->last_meal = time_in_ms();
 	if (philo->id % 2 == 0)
 		ft_usleep(table->time_to_eat / 2);
 	while (1)

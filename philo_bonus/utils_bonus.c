@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 01:12:42 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/28 13:08:12 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/28 14:24:39 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_usleep(long long time)
 void	print_status(t_philo *philo, const char *status)
 {
 	sem_wait(philo->table->print_lock);
-	printf("%lld %d %s\n", time_in_ms() - philo->table->start_time,
+	printf("%lld %d %s\n", time_in_ms() - philo->start_time,
 		philo->id, status);
 	sem_post(philo->table->print_lock);
 }
