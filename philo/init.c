@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/29 10:04:48 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/29 16:59:13 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	init_philos(t_table *table, int i)
 	table->start_time = time_in_ms();
 	while (++i < table->num_philos)
 	{
+		table->philo[i].last_meal = time_in_ms();
 		(1) && (table->philo[i].full = 0, table->philo[i].meals_eaten = 0);
 		(1) && (table->philo[i].id = i + 1, table->philo[i].table = table);
 		table->philo[i].left_fork = table->philo[i].id - 1;
