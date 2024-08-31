@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 12:16:47 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/31 19:24:23 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	print_status(t_table *table, int id, const char *status)
 
 void	cleanup_table(t_table *table)
 {
-	usleep(1000000);
+	usleep(100000);
 	while (table->num_philos--)
 		pthread_mutex_destroy(&table->forks[table->num_philos]);
 	pthread_mutex_destroy(&table->print_lock);
-	pthread_mutex_destroy(&table->eat_lock);
+	pthread_mutex_destroy(&table->lock);
 	free(table->forks);
 	free(table->philo);
 }
@@ -56,12 +56,12 @@ int	destroy_resources(t_table *table, int mode)
 	(!mode) && (ft_putstr_fd("Failed to initialize mutex\n", 2));
 	if (mode == 1)
 	{
-		pthread_mutex_destroy(&table->eat_lock);
+		pthread_mutex_destroy(&table->lock);
 		ft_putstr_fd("Failed to allocate memory for forks\n", 2);
 	}
 	else if (mode == 2)
 	{
-		pthread_mutex_destroy(&table->eat_lock);
+		pthread_mutex_destroy(&table->lock);
 		free(table->forks);
 		ft_putstr_fd("Failed to initialize mutex\n", 2);
 	}
@@ -69,7 +69,7 @@ int	destroy_resources(t_table *table, int mode)
 	{
 		while (++i < table->num_philos)
 			pthread_mutex_destroy(&table->forks[i]);
-		pthread_mutex_destroy(&table->eat_lock);
+		pthread_mutex_destroy(&table->lock);
 		free(table->forks);
 	}
 	pthread_mutex_destroy(&table->print_lock);

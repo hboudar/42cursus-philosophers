@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/26 12:00:06 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/31 19:25:40 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ int	check_time_to_die(t_table *table)
 	i = 0;
 	while (i < table->num_philos)
 	{
-		pthread_mutex_lock(&table->eat_lock);
+		pthread_mutex_lock(&table->lock);
 		if (time_in_ms() - table->philo[i].last_meal >= table->time_to_die)
 		{
-			pthread_mutex_unlock(&table->eat_lock);
+			table->running = 0;
+			pthread_mutex_unlock(&table->lock);
 			philo_died(table, table->philo[i].id);
 			return (1);
 		}
-		pthread_mutex_unlock(&table->eat_lock);
+		pthread_mutex_unlock(&table->lock);
 		i++;
 	}
 	return (0);
@@ -47,14 +48,14 @@ int	check_meals_eaten(t_table *table)
 		return (0);
 	while (i < table->num_philos)
 	{
-		pthread_mutex_lock(&table->eat_lock);
+		pthread_mutex_lock(&table->lock);
 		if (table->philo[i].meals_eaten >= table->meals_required
 			&& !table->philo[i].full)
 		{
 			table->philo[i].full = 1;
 			table->philos_full++;
 		}
-		pthread_mutex_unlock(&table->eat_lock);
+		pthread_mutex_unlock(&table->lock);
 		if (table->philos_full == table->num_philos)
 		{
 			pthread_mutex_lock(&table->print_lock);
@@ -65,7 +66,7 @@ int	check_meals_eaten(t_table *table)
 	return (0);
 }
 
-int	monitor(void *arg)
+void	monitor(void *arg)
 {
 	t_table	*table;
 
@@ -73,6 +74,7 @@ int	monitor(void *arg)
 	while (1)
 	{
 		if (check_time_to_die(table) || check_meals_eaten(table))
-			return (1);
+			break ;
 	}
+	cleanup_table(table);
 }

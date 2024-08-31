@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:22:45 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/29 16:59:13 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/31 19:23:50 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 int	init_philos(t_table *table, int i)
 {
-	table->philo = malloc(sizeof(t_philo) * table->num_philos);
-	if (!table->philo)
-	{
-		ft_putstr_fd("Failed to allocate memory for philosophers\n", 2);
-		return (destroy_resources(table, 3));
-	}
 	table->start_time = time_in_ms();
 	while (++i < table->num_philos)
 	{
@@ -45,7 +39,7 @@ int	init_forks(t_table *table, int i)
 {
 	if (pthread_mutex_init(&table->print_lock, NULL))
 		return (ft_putstr_fd("Failed to initialize mutex\n", 2));
-	if (pthread_mutex_init(&table->eat_lock, NULL))
+	if (pthread_mutex_init(&table->lock, NULL))
 		return (destroy_resources(table, 0));
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->num_philos);
 	if (!table->forks)
@@ -68,6 +62,7 @@ int	init_forks(t_table *table, int i)
 
 int	init_args(t_table *table, int argc, char *argv[])
 {
+	table->running = 1;
 	table->philos_full = 0;
 	table->num_philos = ft_atoi(argv[1], 0);
 	if (table->num_philos < 1)
