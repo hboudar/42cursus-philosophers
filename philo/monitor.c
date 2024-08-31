@@ -16,6 +16,7 @@ static void	philo_died(t_table *table, int id)
 {
 	pthread_mutex_lock(&table->print_lock);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, "died");
+	pthread_mutex_unlock(&table->print_lock);
 }
 
 int	check_time_to_die(t_table *table)

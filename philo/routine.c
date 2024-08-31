@@ -67,8 +67,15 @@ void	*philo_routine(void *arg)
 
 	if (philo->id % 2 == 0)
 		ft_usleep(table->time_to_eat / 2);
-	while (table->running)
+	while (1)
 	{
+		pthread_mutex_lock(&table->lock);
+		if (!table->running)
+		{
+			pthread_mutex_unlock(&table->lock);
+			break ;
+		}
+		pthread_mutex_unlock(&table->lock);
 		eat(philo);
 		ft_sleep(table, philo);
 		print_status(table, philo->id, "is thinking");

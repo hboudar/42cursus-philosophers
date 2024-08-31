@@ -32,6 +32,11 @@ long long	time_in_ms(void)
 void	print_status(t_table *table, int id, const char *status)
 {
 	pthread_mutex_lock(&table->print_lock);
+	if (!table->running)
+	{
+		pthread_mutex_unlock(&table->print_lock);
+		return ;
+	}
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
 	pthread_mutex_unlock(&table->print_lock);
 }
@@ -39,10 +44,11 @@ void	print_status(t_table *table, int id, const char *status)
 void	cleanup_table(t_table *table)
 {
 	usleep(100000);
+	usleep(100000);
 	while (table->num_philos--)
 		pthread_mutex_destroy(&table->forks[table->num_philos]);
-	pthread_mutex_destroy(&table->print_lock);
 	pthread_mutex_destroy(&table->lock);
+	pthread_mutex_destroy(&table->print_lock);
 	free(table->forks);
 	free(table->philo);
 }
@@ -53,7 +59,7 @@ int	destroy_resources(t_table *table, int mode)
 
 	i = -1;
 	usleep(1000000);
-	(!mode) && (ft_putstr_fd("Failed to initialize mutex\n", 2));
+	if (!mode)  (ft_putstr_fd("Failed to initialize mutex\n", 2));
 	if (mode == 1)
 	{
 		pthread_mutex_destroy(&table->lock);
