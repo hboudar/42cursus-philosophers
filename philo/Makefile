@@ -3,7 +3,7 @@ OBJ		=	$(SRC:.c=.o)
 HEADER	=	philo.h
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 
 all:	$(NAME)

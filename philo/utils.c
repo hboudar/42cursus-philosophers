@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/31 19:24:23 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/08/31 19:42:50 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	print_status(t_table *table, int id, const char *status)
 
 void	cleanup_table(t_table *table)
 {
-	usleep(100000);
-	usleep(100000);
+	usleep(250000);
 	while (table->num_philos--)
 		pthread_mutex_destroy(&table->forks[table->num_philos]);
 	pthread_mutex_destroy(&table->lock);
