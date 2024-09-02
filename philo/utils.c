@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/31 19:42:50 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 15:58:07 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ long long	time_in_ms(void)
 
 void	print_status(t_table *table, int id, const char *status)
 {
-	pthread_mutex_lock(&table->print_lock);
+	pthread_mutex_lock(&table->lock);
 	if (!table->running)
 	{
-		pthread_mutex_unlock(&table->print_lock);
+		pthread_mutex_unlock(&table->lock);
 		return ;
 	}
+	pthread_mutex_unlock(&table->lock);
+	pthread_mutex_lock(&table->print_lock);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
 	pthread_mutex_unlock(&table->print_lock);
 }

@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/31 19:25:40 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 16:03:48 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	philo_died(t_table *table, int id)
 {
 	pthread_mutex_lock(&table->print_lock);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, "died");
-	pthread_mutex_unlock(&table->print_lock);
 }
 
 int	check_time_to_die(t_table *table)
@@ -29,7 +28,6 @@ int	check_time_to_die(t_table *table)
 		pthread_mutex_lock(&table->lock);
 		if (time_in_ms() - table->philo[i].last_meal >= table->time_to_die)
 		{
-			table->running = 0;
 			pthread_mutex_unlock(&table->lock);
 			philo_died(table, table->philo[i].id);
 			return (1);
@@ -44,10 +42,10 @@ int	check_meals_eaten(t_table *table)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (table->meals_required == -2)
 		return (0);
-	while (i < table->num_philos)
+	while (++i < table->num_philos)
 	{
 		pthread_mutex_lock(&table->lock);
 		if (table->philo[i].meals_eaten >= table->meals_required
@@ -62,7 +60,6 @@ int	check_meals_eaten(t_table *table)
 			pthread_mutex_lock(&table->print_lock);
 			return (1);
 		}
-		i++;
 	}
 	return (0);
 }
@@ -75,7 +72,12 @@ void	monitor(void *arg)
 	while (1)
 	{
 		if (check_time_to_die(table) || check_meals_eaten(table))
+		{
+			pthread_mutex_lock(&table->lock);
+			table->running = 0;
+			pthread_mutex_unlock(&table->lock);
 			break ;
+		}
 	}
 	cleanup_table(table);
 }

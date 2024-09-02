@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/08/31 19:23:46 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 16:04:32 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,18 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	table = philo->table;
-
 	if (philo->id % 2 == 0)
 		ft_usleep(table->time_to_eat / 2);
 	while (1)
 	{
 		pthread_mutex_lock(&table->lock);
 		if (!table->running)
-		{
-			pthread_mutex_unlock(&table->lock);
 			break ;
-		}
 		pthread_mutex_unlock(&table->lock);
 		eat(philo);
 		ft_sleep(table, philo);
 		print_status(table, philo->id, "is thinking");
 	}
+	//cleaning up the resources of the philo?
 	return (NULL);
 }
