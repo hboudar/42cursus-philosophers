@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 18:26:46 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 20:02:42 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	check_meals_eaten(t_table *table)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (table->meals_required == -2)
 		return (0);
-	while (++i < table->num_philos)
+	while (i < table->num_philos)
 	{
 		pthread_mutex_lock(&table->lock);
 		if (table->philo[i].meals_eaten >= table->meals_required
@@ -60,11 +60,13 @@ int	check_meals_eaten(t_table *table)
 			pthread_mutex_lock(&table->print_lock);
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }
 
-void	monitor(void *arg)
+void	monitor(void *arg)make fc	
+
 {
 	t_table	*table;
 
