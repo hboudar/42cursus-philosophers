@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 15:58:07 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 18:41:53 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ long long	time_in_ms(void)
 
 void	print_status(t_table *table, int id, const char *status)
 {
-	pthread_mutex_lock(&table->lock);
-	if (!table->running)
-	{
-		pthread_mutex_unlock(&table->lock);
-		return ;
-	}
-	pthread_mutex_unlock(&table->lock);
 	pthread_mutex_lock(&table->print_lock);
 	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
 	pthread_mutex_unlock(&table->print_lock);
@@ -45,9 +38,14 @@ void	print_status(t_table *table, int id, const char *status)
 
 void	cleanup_table(t_table *table)
 {
-	usleep(250000);
-	while (table->num_philos--)
-		pthread_mutex_destroy(&table->forks[table->num_philos]);
+	if (table->time_to_die > table->time_to_eat && table->time_to_die > table->time_to_sleep)
+		usleep(table->time_to_die * 1000);
+	else if (table->time_to_eat > table->time_to_die && table->time_to_eat > table->time_to_sleep)
+		usleep(table->time_to_eat * 1000);
+	else
+		usleep(table->time_to_sleep * 1000);
+	pthread_mutex_destroy(&table->forks[0]);
+	pthread_mutex_destroy(&table->forks[1]);
 	pthread_mutex_destroy(&table->lock);
 	pthread_mutex_destroy(&table->print_lock);
 	free(table->forks);

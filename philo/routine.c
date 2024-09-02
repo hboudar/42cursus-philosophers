@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 16:04:32 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/02 18:27:10 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,9 @@ static void	eat(t_philo *philo)
 	print_status(table, philo->id, "is eating");
 	pthread_mutex_lock(&table->lock);
 	philo->last_meal = time_in_ms();
-	pthread_mutex_unlock(&table->lock);
-	ft_usleep(table->time_to_eat);
-	pthread_mutex_lock(&table->lock);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&table->lock);
+	ft_usleep(table->time_to_eat);
 	pthread_mutex_unlock(&table->forks[philo->right_fork]);
 	pthread_mutex_unlock(&table->forks[philo->left_fork]);
 }
@@ -70,12 +68,18 @@ void	*philo_routine(void *arg)
 	{
 		pthread_mutex_lock(&table->lock);
 		if (!table->running)
+		{	
+			pthread_mutex_unlock(&table->lock);
+			if (philo->id == 1)
+				break ;
+			pthread_mutex_destroy(&table->forks[philo->left_fork]);
+			pthread_mutex_destroy(&table->forks[philo->right_fork]);
 			break ;
+		}
 		pthread_mutex_unlock(&table->lock);
 		eat(philo);
 		ft_sleep(table, philo);
 		print_status(table, philo->id, "is thinking");
 	}
-	//cleaning up the resources of the philo?
 	return (NULL);
 }
