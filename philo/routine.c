@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:25:54 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 18:27:10 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/05 10:36:15 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	detaching_philos(t_table *table)
 		}
 	}
 	return (0);
+}
+
+void	print_status(t_table *table, int id, const char *status)
+{
+	pthread_mutex_lock(&table->print_lock);
+	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
+	pthread_mutex_unlock(&table->print_lock);
 }
 
 static void	ft_sleep(t_table *table, t_philo *philo)
@@ -68,12 +75,8 @@ void	*philo_routine(void *arg)
 	{
 		pthread_mutex_lock(&table->lock);
 		if (!table->running)
-		{	
+		{
 			pthread_mutex_unlock(&table->lock);
-			if (philo->id == 1)
-				break ;
-			pthread_mutex_destroy(&table->forks[philo->left_fork]);
-			pthread_mutex_destroy(&table->forks[philo->right_fork]);
 			break ;
 		}
 		pthread_mutex_unlock(&table->lock);

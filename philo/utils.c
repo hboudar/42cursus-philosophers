@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 01:09:39 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 19:20:36 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/05 10:36:04 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,26 @@ long long	time_in_ms(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-void	print_status(t_table *table, int id, const char *status)
+static int	bigger_time(t_table *table)
 {
-	pthread_mutex_lock(&table->print_lock);
-	printf("%lld %d %s\n", time_in_ms() - table->start_time, id, status);
-	pthread_mutex_unlock(&table->print_lock);
+	if (table->time_to_eat >= table->time_to_sleep
+		&& table->time_to_eat >= table->time_to_die)
+		return (table->time_to_eat);
+	else if (table->time_to_sleep >= table->time_to_eat
+		&& table->time_to_sleep >= table->time_to_die)
+		return (table->time_to_sleep);
+	else
+		return (table->time_to_die);
 }
 
 void	cleanup_table(t_table *table)
 {
-	if (table->time_to_die > table->time_to_eat && table->time_to_die > table->time_to_sleep)
-		ft_usleep(table->time_to_die * 10);
-	else if (table->time_to_eat > table->time_to_die && table->time_to_eat > table->time_to_sleep)
-		ft_usleep(table->time_to_eat * 10);
-	else
-		ft_usleep(table->time_to_sleep * 10);
+	int	i;
+
+	ft_usleep(bigger_time(table));
+	i = -1;
+	while (++i < table->num_philos)
+		pthread_mutex_destroy(&table->forks[i]);
 	pthread_mutex_destroy(&table->lock);
 	pthread_mutex_destroy(&table->print_lock);
 	free(table->forks);
@@ -54,9 +59,9 @@ int	destroy_resources(t_table *table, int mode)
 {
 	int	i;
 
+	ft_usleep(bigger_time(table));
 	i = -1;
-	usleep(1000000);
-	if (!mode)  (ft_putstr_fd("Failed to initialize mutex\n", 2));
+	(!mode) && (ft_putstr_fd("Failed to initialize mutex\n", 2));
 	if (mode == 1)
 	{
 		pthread_mutex_destroy(&table->lock);

@@ -6,7 +6,7 @@
 /*   By: hboudar <hboudar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:27:03 by hboudar           #+#    #+#             */
-/*   Updated: 2024/09/02 20:02:42 by hboudar          ###   ########.fr       */
+/*   Updated: 2024/09/05 10:30:54 by hboudar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int	check_meals_eaten(t_table *table)
 	return (0);
 }
 
-void	monitor(void *arg)make fc	
-
+void	monitor(void *arg)
 {
 	t_table	*table;
 
